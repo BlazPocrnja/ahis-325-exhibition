@@ -14,7 +14,6 @@ const productBaseFields = /* groq */ `
     "ref": asset._ref,
     alt,
   },
-  sku,
   content,
 `;
 

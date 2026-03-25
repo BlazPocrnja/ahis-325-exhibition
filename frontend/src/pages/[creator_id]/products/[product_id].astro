@@ -6,7 +6,6 @@ import SanityImage from "../../../components/SanityImage.astro";
 import Separator from "../../../components/Separator.astro";
 import { getCheckoutLinks } from "../../../data/polar";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import { getFormattedPrice } from "../../../utils/getFormattedPrice";
 
 export const getStaticPaths = async () => {
 	// Fetch all products from the 'products' collection
@@ -39,8 +38,6 @@ type Props = {
 
 const { creator, product } = Astro.props;
 
-const price = getFormattedPrice(product.data.price);
-
 const productCheckoutLink = await getCheckoutLinks([product.data.sku]);
 ---
 
@@ -60,7 +57,7 @@ const productCheckoutLink = await getCheckoutLinks([product.data.sku]);
         <RichText content={product.data.content}  />
         <!-- <checkout-link data-polar-client-token={productCheckoutLink.clientSecret}> -->
         {productCheckoutLink ?
-        <a id="checkout-link" target="_blank" href={productCheckoutLink.initialUrl}>Get A Digital Copy for {price}</a> : null}
+        <a id="checkout-link" target="_blank" href={productCheckoutLink.initialUrl}>Get A Digital Copy for </a> : null}
         <!-- </checkout-link> -->
       </div>
     </div>

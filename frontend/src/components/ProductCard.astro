@@ -1,7 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { getEntry } from "astro:content";
-import { getFormattedPrice } from "../utils/getFormattedPrice";
 import SanityImage from "./SanityImage.astro";
 
 type Props = {
@@ -14,14 +13,11 @@ const { product } = Astro.props;
 const creator = await getEntry('creators', product.data.creator.id)
 
 
-
-const price = getFormattedPrice(product.data.price);
 ---
 
 <a class="product-card"
 data-product-title={product.data.name}
 data-creator-name={creator.data.alias}
-data-price={price}
 data-astro-prefetch
 href={`/${creator.data.slug}/products/${product.data.slug}`}>
   <article>
