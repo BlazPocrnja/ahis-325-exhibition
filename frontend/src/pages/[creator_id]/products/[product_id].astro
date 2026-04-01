@@ -4,7 +4,6 @@ import { getCollection, getEntry } from "astro:content";
 import RichText from "../../../components/RichText.astro";
 import SanityImage from "../../../components/SanityImage.astro";
 import Separator from "../../../components/Separator.astro";
-import { getCheckoutLinks } from "../../../data/polar";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 
 export const getStaticPaths = async () => {
@@ -38,7 +37,6 @@ type Props = {
 
 const { creator, product } = Astro.props;
 
-const productCheckoutLink = await getCheckoutLinks([product.data.sku]);
 ---
 
 <BaseLayout title={product.data.name}>
@@ -55,42 +53,7 @@ const productCheckoutLink = await getCheckoutLinks([product.data.sku]);
       <SanityImage node={product.data.imageWithAlt} width={1000} fit="contain" aspectRatio="9-16" />
       <div class="content">
         <RichText content={product.data.content}  />
-        <!-- <checkout-link data-polar-client-token={productCheckoutLink.clientSecret}> -->
-        {productCheckoutLink ?
-        <a id="checkout-link" target="_blank" href={productCheckoutLink.initialUrl}>Get A Digital Copy for </a> : null}
-        <!-- </checkout-link> -->
       </div>
     </div>
   </section>
 </BaseLayout>
-
-<!-- <script>
-class CheckoutLink extends HTMLElement {
-  private anchor: HTMLAnchorElement | null
-  private clientSecret : string | null
-
-  constructor() {
-    super();
-    this.clientSecret = this.getAttribute('data-polar-client-token');
-    this.anchor = this.querySelector('a');
-  }
-
-  connectedCallback() {
-    this.refreshLink();
-  }
-
-  refreshLink = async () => {
-    console.log(this.clientSecret);
-
-    const res = await fetch(`https://api.polar.sh/v1/checkouts/client/${this.clientSecret}`, {method: 'GET'})
-      .then(response => response.json())
-      .catch(err => console.error(err));
-
-    if (res.url && this.anchor) {
-      this.anchor.href = res.url;
-    }
-  }
-}
-
-customElements.define('checkout-link', CheckoutLink);
-</script> -->

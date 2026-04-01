@@ -17,9 +17,9 @@ export function getSanityImage({ node, width = 960 }: Props) {
 	// presenting images, and https://www.sanity.io/docs/image-url for specifics on
 	// this builder API
 	try {
-		image =
-			node.ref &&
-			builder.image(node.ref).width(width).fit("crop").auto("format");
+		if (node.ref) {
+			image = builder.image(node.ref).width(width).fit("crop").auto("format");
+		}
 	} catch (error) {
 		console.error(error);
 	}

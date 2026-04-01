@@ -12,7 +12,7 @@ const routes = {
 	"/links/": "Links",
 };
 // Determine the active route
-const activeRoute = routes[currentPath] || null;
+const activeRoute = routes[currentPath as keyof typeof routes] || null;
 ---
 
 <header>

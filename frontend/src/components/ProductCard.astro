@@ -17,14 +17,14 @@ const creator = await getEntry('creators', product.data.creator.id)
 
 <a class="product-card"
 data-product-title={product.data.name}
-data-creator-name={creator.data.alias}
+data-creator-name={creator?.data.alias}
 data-astro-prefetch
-href={`/${creator.data.slug}/products/${product.data.slug}`}>
+href={`/${creator?.data.slug}/products/${product.data.slug}`}>
   <article>
     <SanityImage node={product.data.imageWithAlt} width={800}  />
     <span class="sr-only">
       <h3>{product.data.name}</h3>
-      <p>{new Date(product.data.publishedAt).getFullYear()}</p>
+      <p>{new Date(`${product.data.publishedAt}`).getFullYear()}</p>
     </span>
   </article>
 </a>
