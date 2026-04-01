@@ -4,7 +4,10 @@ import Preloader from "../components/Preloader.astro";
 import ProductGrid from "../components/ProductGrid.astro";
 import ProductGridHeader from "../components/ProductGridHeader.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import GameOfLife from "../components/GameOfLife.astro";
+import RichText from "../components/RichText.astro";
 
+const heroes = await getCollection("heroes");
 const allProducts = await getCollection("products");
 const productsTotal = allProducts.length;
 const title = "Surviving the Present Tense - All Pieces";
@@ -16,7 +19,35 @@ const title = "Surviving the Present Tense - All Pieces";
     If you don’t want to use the preloader (e.g., for faster page load times or if you don’t require preloading images), you can safely remove the <Preloader /> component from this layout.
   -->
   <Preloader />
-  <ProductGridHeader productsTotal={productsTotal} />
+  <section class="hero">
+    <canvas id="golCanvas"/>
+    <h1 >{heroes?.[0].data.title}</h1>
+    <h3>{heroes?.[0].data.subtitle}</h3>
+    <RichText content={heroes?.[0].data.content}  />
+  </section>
+    <ProductGridHeader productsTotal={productsTotal} />
   <ProductGrid products={allProducts} />
 </BaseLayout>
+
+<style>
+  .hero {
+    min-height: 100dvh; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+
+  #golCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+</style>
+
 <script src="../scripts/index.js"></script>
+<script src="../scripts/gameOfLife.js"></script>

@@ -15,5 +15,5 @@ export default defineCliConfig({
     projectId,
     dataset,
   },
-  autoUpdates: true,
+  deployment: {autoUpdates: true}
 });

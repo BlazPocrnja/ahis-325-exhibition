@@ -20,23 +20,23 @@ const activeRoute = routes[currentPath] || null;
     <a href="/" class={activeRoute === "Home" ? "current" : ""}
       ><TextSlider content="Surviving the Present Tense" /></a>
   </h1>
-  <span><TextSlider content="Creators Collective" /></span>
+  <span><TextSlider content="Humus Collective" /></span>
   <ul>
     <li>
       <a
-        href="/artists/"
+        href="/artists"
         class={activeRoute === "Artists" ? "current" : ""}
         data-astro-prefetch><TextSlider content="Artists" /></a>
     </li>
     <li>
       <a
-        href="/history/"
+        href="/history"
         class={activeRoute === "History" ? "current" : ""}
         data-astro-prefetch><TextSlider content="History" /></a>
     </li>
     <li>
       <a
-        href="/Links/"
+        href="/links"
         class={activeRoute === "Links" ? "current" : ""}
         data-astro-prefetch><TextSlider content="Links" /></a>
     </li>

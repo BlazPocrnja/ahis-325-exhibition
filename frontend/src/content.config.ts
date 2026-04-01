@@ -1,7 +1,7 @@
 import { defineCollection, reference, z } from "astro:content";
 import { glob } from "astro/loaders";
 import { getProductById } from "./data/polar";
-import { getAllCreators, getAllProducts } from "./data/sanity";
+import { getAllCreators, getAllHeroes, getAllProducts } from "./data/sanity";
 
 const products = defineCollection({
 	loader: async () => {
@@ -97,5 +97,23 @@ const albums = defineCollection({
 	}),
 });
 
+const heroes = defineCollection({
+		loader: async () => {
+		const result = await getAllHeroes();
+		return result.data;
+	},
+	schema: z.object({
+		_id: z.string(),
+		_type: z.string(),
+		_createdAt: z.string(),
+		_updatedAt: z.string(),
+		status: z.string(),
+		title: z.string(),
+		subtitle: z.string().optional(),
+		publishedAt: z.string().optional(),
+		content: z.array(z.unknown())
+	}),
+});
+
 // Export all collections
-export const collections = { artists, albums, products, creators };
+export const collections = { artists, albums, products, creators, heroes };

@@ -22,6 +22,10 @@
 	--font-size-xl: clamp(1.5rem, 5vw, 2.75rem);
 }
 
+button,
+input,
+select,
+textarea,
 body {
 	margin: 0;
 	padding: 0 1rem;
@@ -37,6 +41,10 @@ body {
 		filter: blur(5px);
 		pointer-events: none;
 	}
+}
+
+h1 {
+	text-transform: uppercase;
 }
 
 h2 {

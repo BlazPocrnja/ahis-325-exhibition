@@ -34,6 +34,18 @@ const creatorBaseFields = /* groq */ `
   content,
 `;
 
+const heroBaseFields = /* groq */ `
+  "id": _id,
+  _id,
+  _type,
+  _createdAt,
+  _updatedAt,
+  "status": select(_id in path("drafts.**") => "draft", "published"),
+  title,
+  subtitle,
+  content,
+`;
+
 export const ALL_PRODUCTS_QUERY = defineQuery(`
   *[_type == "product"] {
     ${productBaseFields}
@@ -45,5 +57,12 @@ export const ALL_CREATORS_QUERY = defineQuery(`
   *[_type == "creator"] {
     ${creatorBaseFields}
     "products": *[_type == "product" && creator._ref == ^._id].slug.current,
+  }
+`);
+
+
+export const ALL_HEROES_QUERY = defineQuery(`
+  *[_type == "hero"] {
+    ${heroBaseFields}
   }
 `);
