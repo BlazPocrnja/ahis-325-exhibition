@@ -18,11 +18,13 @@ const title = "Surviving the Present Tense - All Pieces";
     If you don’t want to use the preloader (e.g., for faster page load times or if you don’t require preloading images), you can safely remove the <Preloader /> component from this layout.
   -->
   <Preloader />
+  <canvas id="golCanvas"/>
   <section class="hero">
-    <canvas id="golCanvas"/>
-    <h1 >{heroes?.[0].data.title}</h1>
-    <h3>{heroes?.[0].data.subtitle}</h3>
-    <RichText content={heroes?.[0].data.content}  />
+    <div class="hero-content">
+      <h1 >{heroes?.[0].data.title}</h1>
+      <h3>{heroes?.[0].data.subtitle}</h3>
+      <RichText content={heroes?.[0].data.content}  />
+    </div>
   </section>
     <ProductGridHeader productsTotal={productsTotal} />
   <ProductGrid products={allProducts} />
@@ -35,7 +37,16 @@ const title = "Surviving the Present Tense - All Pieces";
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 0 28%;
+  }
+
+  .hero-content {
+    background: rgba(255, 255, 255, 0.7); /* Adjust opacity to taste */
+    backdrop-filter: blur(8px);
     padding: 2rem;
+    border-radius: 8px;
+    max-height: 100dvh;
+    overflow-y: auto;
   }
 
   #golCanvas {
@@ -43,8 +54,15 @@ const title = "Surviving the Present Tense - All Pieces";
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100dvh;
     z-index: -1;
+    image-rendering: pixelated;
+  }
+
+    @media screen and (max-width: 50em) {
+      .hero {
+        padding: 0 0;
+      }
   }
 </style>
 

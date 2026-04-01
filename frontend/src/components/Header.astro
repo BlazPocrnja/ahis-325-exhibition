@@ -50,9 +50,11 @@ const activeRoute = routes[currentPath as keyof typeof routes] || null;
     display: grid;
     grid-template-columns: min-content auto;
     font-weight: 700;
-    padding: 1rem 0;
+    padding: 1rem 1rem;
     gap: 1rem;
     z-index: 3;
+    background: rgba(255, 255, 255, 0.7); /* Adjust opacity to taste */
+    backdrop-filter: blur(8px);
   }
   header a.current {
     pointer-events: none;
