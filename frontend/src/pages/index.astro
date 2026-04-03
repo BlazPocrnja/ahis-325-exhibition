@@ -10,7 +10,7 @@ import RichText from "../components/RichText.astro";
 const heroes = await getCollection("heroes");
 const allProducts = await getCollection("products");
 const productsTotal = allProducts.length;
-const title = "Surviving the Present Tense - All Pieces";
+const title = "Surviving the Present Tense";
 ---
 
 <BaseLayout title={title}>
@@ -28,7 +28,7 @@ const title = "Surviving the Present Tense - All Pieces";
     </div>
   </section>
   <Gallery items={allProducts} />
-  <div class="index-grid">
+  <div class="side-padding">
     <ProductGridHeader productsTotal={productsTotal} />
     <ProductGrid products={allProducts} />
   </div>
@@ -67,10 +67,6 @@ const title = "Surviving the Present Tense - All Pieces";
       .hero {
         padding: 0 0;
       }
-  }
-
-  .index-grid {
-    padding: 0 1rem;
   }
 </style>
 

@@ -1,0 +1,36 @@
+---
+import type { CollectionEntry } from "astro:content";
+import CreatorCard from "./CreatorCard.astro";
+import CreatorTooltip from "./CreatorTooltip.astro";
+
+type Props = {
+	creators: CollectionEntry<"creators">[];
+};
+
+const { creators } = Astro.props;
+const grid = "creators";
+---
+
+<section class="creator-grid" id='grid' data-grid={grid}>
+  {creators.map((creator) => <CreatorCard creator={creator} />)}
+</section>
+
+<CreatorTooltip grid={grid} />
+
+<style>
+  .creator-grid {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2, calc(100% / 2));
+    margin: 1rem 0 10rem;
+    min-height: 400px;
+    @media screen and (min-width: 30em) {
+      grid-template-columns: repeat(4, calc(100% / 4));
+    }
+    @media screen and (min-width: 50em) {
+      grid-template-columns: repeat(6, calc(100% / 6));
+    }
+  }
+</style>

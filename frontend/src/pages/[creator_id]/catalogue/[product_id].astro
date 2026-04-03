@@ -40,13 +40,13 @@ const { creator, product } = Astro.props;
 ---
 
 <BaseLayout title={product.data.name}>
-  <section>
+  <section class="side-padding">
     <header class="title-header">
       <h2>
         {product.data.name}
-        <span class="faded">by {creator.data.alias}</span>
+        <span class="faded">by {creator.data.name}</span>
       </h2>
-      <div><a  class="back" href={`/${creator.id}`}>Back to creator</a></div>
+      <div><a  class="back" href={`/${creator.id}`}>Artist Bio</a></div>
     </header>
     <Separator />
     <div class="content-wrap">

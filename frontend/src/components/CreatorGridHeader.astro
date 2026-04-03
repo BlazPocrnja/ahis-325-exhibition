@@ -5,14 +5,14 @@ import Separator from "../components/Separator.astro";
 import TextSlider from "../components/TextSlider.astro";
 
 type Props = {
-	productsTotal: number;
+	creatorsTotal: number;
 };
 
-const { productsTotal } = Astro.props;
+const { creatorsTotal } = Astro.props;
 ---
 
 <header class="title-header title-header--initial">
-  <h2><TextSlider content="Catalogue" /></h2>
+  <h2><TextSlider content="Artists" /></h2>
   <div>
     <button data-sort><TextSlider content="Sort" /></button>
     <button data-shuffle><TextSlider content="Shuffle" /></button>
@@ -24,7 +24,7 @@ const { productsTotal } = Astro.props;
       </button>
     </div>
   </div>
-  <span><TextSlider content={productsTotal} /></span>
+  <span><TextSlider content={creatorsTotal} /></span>
 </header>
 
 <Separator />
@@ -63,4 +63,4 @@ const { productsTotal } = Astro.props;
   }
 </style>
 
-<script src="../scripts/productGridActions.js"></script>
+<script src="../scripts/creatorGridActions.js"></script>

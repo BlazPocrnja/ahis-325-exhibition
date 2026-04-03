@@ -25,7 +25,7 @@ const galleryItems = await Promise.all(
     <div class="art-frame-container">
       <div class="sticky-wrapper">
         <div class="info-layer">
-            <h3>{item?.creator?.name || item?.creator?.alias || ""}</h3>
+            <h3>{item?.creator?.name || ""}</h3>
         </div>
         <div class="image-container">
           <SanityImage 

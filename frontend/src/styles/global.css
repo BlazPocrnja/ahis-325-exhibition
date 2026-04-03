@@ -247,3 +247,7 @@ dd {
 		gap: 1rem;
 	}
 }
+
+.side-padding {
+	padding: 0 1rem;
+}

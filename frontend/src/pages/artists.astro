@@ -1,12 +1,17 @@
 ---
+import { getCollection } from "astro:content";
+import CreatorGrid from "../components/CreatorGrid.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import CreatorGridHeader from "../components/CreatorGridHeader.astro";
 
+const creators = await getCollection("creators");
+const creatorsTotal = creators.length;
 const title = "Artists";
 ---
 
 <BaseLayout title={title}>
-  <div class="content content--page">
-    <h1>Artists</h1>
-    <p>This is just an example page</p>
+  <div class="side-padding">
+    <CreatorGridHeader creatorsTotal={creatorsTotal} />
+    <CreatorGrid creators={creators} />
   </div>
 </BaseLayout>

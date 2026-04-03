@@ -1,0 +1,49 @@
+---
+import type { CollectionEntry } from "astro:content";
+import SanityImage from "./SanityImage.astro";
+
+type Props = {
+	creator: CollectionEntry<"creators">;
+};
+
+const { creator } = Astro.props;
+
+
+---
+
+<a class="creator-card"
+data-creator-title={creator.data.name}
+data-creator-name={creator.data.alias}
+data-astro-prefetch
+href={`/${creator.data.slug}`}>
+  <article>
+    <SanityImage node={creator.data.imageWithAlt} width={800}  />
+    <span class="sr-only">
+      <h3>{creator.data.name}</h3>
+    </span>
+  </article>
+</a>
+
+<style>
+  .creator-card {
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: column;
+    align-content: start;
+    max-width: 300px;
+  }
+  div {
+    background: var(--color-placeholder);
+  }
+  h3,
+  p {
+    margin: 0;
+  }
+  h3 {
+    grid-area: title;
+  }
+  p {
+    justify-self: end;
+    grid-area: meta;
+  }
+</style>

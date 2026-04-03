@@ -50,16 +50,15 @@ const products = await getCollection(
 ---
 
 <BaseLayout title={creator.data.name}>
-  <section>
+  <section class="side-padding">
     <header class="title-header">
       <h2>
-        {creator.data.alias}
-        <span class="faded">({creator.data.name})</span>
+        {creator.data.name}
       </h2>
       <div>
-        <a class="back" href="/">Back Home</a>
+        <a class="back" href="/artists">See all</a>
         <span class="faded">/</span>
-        <a href={`/${nextCreator.id}`}>Next creator</a>
+        <a href={`/${nextCreator.id}`}>Next artist</a>
       </div>
     </header>
     <Separator />
@@ -75,7 +74,7 @@ const products = await getCollection(
       {
         products.length > 0 && (
         <div class="products">
-            <h3>Pieces</h3>
+            <h3>Catalogue</h3>
             <ProductPreviewGrid products={products.slice(0,2)} />
           </div>
         )
