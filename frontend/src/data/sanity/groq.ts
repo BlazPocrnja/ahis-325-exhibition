@@ -46,6 +46,18 @@ const heroBaseFields = /* groq */ `
   content,
 `;
 
+const essayBaseFields = /* groq */ `
+  "id": _id,
+  _id,
+  _type,
+  _createdAt,
+  _updatedAt,
+  "status": select(_id in path("drafts.**") => "draft", "published"),
+  title,
+  subtitle,
+  content,
+`;
+
 export const ALL_PRODUCTS_QUERY = defineQuery(`
   *[_type == "product"] {
     ${productBaseFields}
@@ -64,5 +76,11 @@ export const ALL_CREATORS_QUERY = defineQuery(`
 export const ALL_HEROES_QUERY = defineQuery(`
   *[_type == "hero"] {
     ${heroBaseFields}
+  }
+`);
+
+export const ALL_ESSAYS_QUERY = defineQuery(`
+  *[_type == "essay"] {
+    ${essayBaseFields}
   }
 `);

@@ -251,3 +251,7 @@ dd {
 .side-padding {
 	padding: 0 1rem;
 }
+
+.subtitle {
+	opacity: 0.6;
+}

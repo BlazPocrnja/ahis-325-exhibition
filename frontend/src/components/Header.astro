@@ -8,8 +8,7 @@ const currentPath = Astro.url.pathname;
 const routes = {
 	"/": "Home",
 	"/artists/": "Artists",
-	"/history/": "History",
-	"/links/": "Links",
+	"/essay/": "Essay",
 };
 // Determine the active route
 const activeRoute = routes[currentPath as keyof typeof routes] || null;
@@ -24,21 +23,20 @@ const activeRoute = routes[currentPath as keyof typeof routes] || null;
   <ul>
     <li>
       <a
+        href="/#catalogue"
+        data-astro-prefetch><TextSlider content="Catalogue" /></a>
+    </li>
+    <li>
+      <a
         href="/artists"
         class={activeRoute === "Artists" ? "current" : ""}
         data-astro-prefetch><TextSlider content="Artists" /></a>
     </li>
     <li>
       <a
-        href="/history"
-        class={activeRoute === "History" ? "current" : ""}
-        data-astro-prefetch><TextSlider content="History" /></a>
-    </li>
-    <li>
-      <a
-        href="/links"
-        class={activeRoute === "Links" ? "current" : ""}
-        data-astro-prefetch><TextSlider content="Links" /></a>
+        href="/essay"
+        class={activeRoute === "Essay" ? "current" : ""}
+        data-astro-prefetch><TextSlider content="Essay" /></a>
     </li>
   </ul>
 </header>

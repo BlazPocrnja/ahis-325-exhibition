@@ -1,0 +1,27 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Separator from "../components/Separator.astro";
+import RichText from "../components/RichText.astro";
+
+const essays = await getCollection("essays");
+
+const title = "Surviving the Present Tense - Essay";
+---
+
+<BaseLayout title={title}>
+  <section class="side-padding">
+
+    <div class="content-wrap">
+      <div>
+        <h2>
+          {essays?.[0].data.title}
+        </h2>
+        <h4 class="subtitle">{essays?.[0].data.subtitle}</h4>
+      </div>
+      <div class="content">
+        <RichText content={essays?.[0].data.content} />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

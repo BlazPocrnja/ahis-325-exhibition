@@ -23,12 +23,12 @@ const title = "Surviving the Present Tense";
   <section class="hero">
     <div class="hero-content">
       <h1 >{heroes?.[0].data.title}</h1>
-      <h3>{heroes?.[0].data.subtitle}</h3>
+      <h3 class="subtitle">{heroes?.[0].data.subtitle}</h3>
       <RichText content={heroes?.[0].data.content}  />
     </div>
   </section>
   <Gallery items={allProducts} />
-  <div class="side-padding">
+  <div class="side-padding" id="catalogue">
     <ProductGridHeader productsTotal={productsTotal} />
     <ProductGrid products={allProducts} />
   </div>
@@ -45,7 +45,7 @@ const title = "Surviving the Present Tense";
   }
 
   .hero-content {
-    background: rgba(255, 255, 255, 0.7); /* Adjust opacity to taste */
+    background: rgba(255, 255, 255, 0.2); /* Adjust opacity to taste */
     backdrop-filter: blur(8px);
     padding: 2rem;
     border-radius: 8px;

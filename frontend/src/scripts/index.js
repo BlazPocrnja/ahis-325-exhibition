@@ -64,13 +64,6 @@ const cleanup = () => {
 const init = () => {
 	initializeVariables();
 
-	// Disable scroll restoration on browser back navigation.
-	if ("scrollRestoration" in history) {
-		history.scrollRestoration = "manual";
-	}
-	// Scroll to the top of the page.
-	window.scrollTo(0, 0);
-
 	// Wait for assets to load if a preloader is present.
 	if (
 		hasPreloaderComponent &&

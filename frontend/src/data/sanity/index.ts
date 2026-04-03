@@ -1,5 +1,5 @@
 import { sanityFetch } from "./fetch";
-import { ALL_CREATORS_QUERY, ALL_HEROES_QUERY, ALL_PRODUCTS_QUERY } from "./groq";
+import { ALL_CREATORS_QUERY, ALL_HEROES_QUERY, ALL_PRODUCTS_QUERY, ALL_ESSAYS_QUERY } from "./groq";
 
 export async function getAllCreators() {
 	return sanityFetch<({ id: string } & Record<string, unknown>)[]>({
@@ -16,5 +16,11 @@ export async function getAllProducts() {
 export async function getAllHeroes() {
 	return sanityFetch<({ id: string } & Record<string, unknown>)[]>({
 		query: ALL_HEROES_QUERY,
+	});
+}
+
+export async function getAllEssays() {
+	return sanityFetch<({ id: string } & Record<string, unknown>)[]>({
+		query: ALL_ESSAYS_QUERY,
 	});
 }
