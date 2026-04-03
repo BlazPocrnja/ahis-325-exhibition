@@ -1,5 +1,4 @@
 import { defineField, defineType } from "sanity";
-import { ProductSelector } from "../components/product-selector";
 
 export const product = defineType({
   __experimental_formPreviewTitle: false,
@@ -46,6 +45,13 @@ export const product = defineType({
     defineField({
       name: "content",
       type: "portableText",
+    }),
+    defineField({
+      name: 'order',
+      title: 'Sort Order',
+      type: 'number',
+      initialValue: 0,
+      description: 'Lower numbers appear first (e.g., 1, 2, 3)',
     }),
   ],
   preview: {

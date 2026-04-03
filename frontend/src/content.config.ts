@@ -1,26 +1,11 @@
 import { defineCollection, reference, z } from "astro:content";
 import { glob } from "astro/loaders";
-import { getProductById } from "./data/polar";
 import { getAllCreators, getAllHeroes, getAllProducts, getAllEssays } from "./data/sanity";
 
 const products = defineCollection({
 	loader: async () => {
 		const result = await getAllProducts();
-
-		const productsWithPrice = await Promise.all(
-			result.data.map(async (product) => {
-				const sku = product.sku;
-				if (typeof sku !== "string") {
-					return { ...product };
-				}
-				const polarData = await getProductById(sku);
-				return {
-					...product,
-					price: polarData.price,
-				};
-			}),
-		);
-		return productsWithPrice;
+		return result.data;
 	},
 	schema: z.object({
 		_id: z.string(),
@@ -44,6 +29,7 @@ const products = defineCollection({
 			})
 			.optional(),
 		creator: reference("creators"),
+		order: z.number().nullable().optional()
 	}),
 });
 

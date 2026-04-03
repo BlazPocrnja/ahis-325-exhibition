@@ -15,6 +15,7 @@ const productBaseFields = /* groq */ `
     alt,
   },
   content,
+  order,
 `;
 
 const creatorBaseFields = /* groq */ `
@@ -59,9 +60,10 @@ const essayBaseFields = /* groq */ `
 `;
 
 export const ALL_PRODUCTS_QUERY = defineQuery(`
-  *[_type == "product"] {
+  *[_type == "product"] | order(order asc) {
     ${productBaseFields}
     "creator" : creator->.slug.current,
+    order
   }
 `);
 

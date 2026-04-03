@@ -7,36 +7,50 @@ import Separator from "../../../components/Separator.astro";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 
 export const getStaticPaths = async () => {
-	// Fetch all products from the 'products' collection
-	const products = await getCollection("products");
+  const allProducts = await getCollection("products");
 
-	const paths = await Promise.all(
-		products.map(async (product) => {
-			const creator = await getEntry("creators", product.data.creator.id);
-			return {
-				params: {
-					creator_id: product.data.creator.id,
-					product_id: product.id,
-				},
-				props: {
-					creator,
-					product,
-				},
-			};
-		}),
-	);
+  // 1. Sort by your new 'order' field (matching your Sanity logic)
+  const sortedProducts = allProducts.sort((a, b) => {
+    const orderA = a.data.order ?? 999;
+    const orderB = b.data.order ?? 999;
+    return orderA - orderB;
+  });
 
-	// Return the generated paths for static page generation
-	return paths;
+  const paths = await Promise.all(
+    sortedProducts.map(async (product, index) => {
+      const creator = await getEntry("creators", product.data.creator.id);
+
+      // 2. Calculate the next product index (wraps to 0 if at the end)
+      const nextIndex = (index + 1) % sortedProducts.length;
+      const nextProduct = sortedProducts[nextIndex];
+
+      return {
+        params: {
+          creator_id: product.data.creator.id,
+          product_id: product.id,
+        },
+        props: {
+          creator,
+          product,
+          // 3. Pass the next product's details as props
+          nextProductSlug: nextProduct.id,
+          nextProductCreatorId: nextProduct.data.creator.id,
+        },
+      };
+    })
+  );
+
+  return paths;
 };
 
 type Props = {
-	creator: CollectionEntry<"creators">;
-	product: CollectionEntry<"products">;
+  creator: CollectionEntry<"creators">;
+  product: CollectionEntry<"products">;
+  nextProductSlug: string;
+  nextProductCreatorId: string;
 };
 
-const { creator, product } = Astro.props;
-
+const { creator, product, nextProductSlug, nextProductCreatorId } = Astro.props;
 ---
 
 <BaseLayout title={product.data.name}>
@@ -46,9 +60,17 @@ const { creator, product } = Astro.props;
         {product.data.name}
         <span class="faded">by {creator.data.name}</span>
       </h2>
-      <div><a  class="back" href={`/${creator.id}`}>Artist Bio</a></div>
+      <div class="nav-links">
+        <a class="back" href={`/${creator.id}`}>Artist Bio</a>
+		<span class="faded">/</span>
+        <a class="next" href={`/${nextProductCreatorId}/catalogue/${nextProductSlug}`}>
+          Next Artwork
+        </a>
+      </div>
     </header>
+    
     <Separator />
+    
     <div class="content-wrap">
       <SanityImage node={product.data.imageWithAlt} width={1000} fit="contain"/>
       <div class="content">
