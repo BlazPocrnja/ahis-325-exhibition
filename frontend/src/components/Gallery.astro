@@ -78,7 +78,7 @@ const galleryItems = await Promise.all(
 
   .info-layer {
     flex: 1;
-    z-index: 1;
+    z-index: 2;
     text-align: center;
     opacity: 0; /* Hidden initially */
     transform: translateY(20px);
@@ -89,14 +89,16 @@ const galleryItems = await Promise.all(
   .shadow-person {
       position: absolute;
       top: 0;
-      left: -100%;
-      width: 100%; 
+      left: -400%;
+      width: 400%; 
       height: 100%;
       
       background: linear-gradient(
           to right,
           transparent 0%,
+          transparent 10%,
           rgba(0, 0, 0, 0.8) 50%,
+          transparent 90%,
           transparent 100%
       );
 
@@ -132,7 +134,7 @@ const galleryItems = await Promise.all(
 
       /* Increase blur slightly to 80px to meld the pixels into a 'haze' */
       filter: blur(80px); 
-      z-index: 2;
+      z-index: 1;
       pointer-events: none;
       will-change: left, -webkit-mask-position;
   }
