@@ -43,6 +43,12 @@ export const product = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: "videoLink",
+      title: "Video Link",
+      type: "string",
+      description: 'Optional field for video/performance works.',
+    }),
+    defineField({
       name: "content",
       type: "portableText",
     }),

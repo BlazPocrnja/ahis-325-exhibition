@@ -72,7 +72,11 @@ const { creator, product, nextProductSlug, nextProductCreatorId } = Astro.props;
     <Separator />
     
     <div class="content-wrap">
-      <SanityImage node={product.data.imageWithAlt} width={1000} fit="contain"/>
+      {product.data.videoLink ? 
+        <iframe title="vimeo-player" src={product.data.videoLink} width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"  allowfullscreen></iframe> 
+        :
+        <SanityImage node={product.data.imageWithAlt} width={1000} fit="contain"/>
+      }
       <div class="content">
         <RichText content={product.data.content}  />
       </div>
