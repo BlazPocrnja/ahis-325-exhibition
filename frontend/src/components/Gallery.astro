@@ -167,43 +167,6 @@ const galleryItems = await Promise.all(
       
   }
 
-  @media screen and (max-width: 50em) {
-.sticky-wrapper {
-    flex-direction: column; /* Stack elements vertically */
-    justify-content: center;
-    gap: 1.5rem; /* Space between text and image */
-  }
-
-  .image-container {
-    height: auto; /* Let height be defined by width/aspect ratio */
-    width: 90%;   /* Use more horizontal space */
-    max-height: 50dvh; /* Don't let it take over the whole screen */
-    transform: scale(1); /* Reduce scale; 1.5 is usually too big for mobile */
-    order: 1; /* Keep image in the middle */
-  }
-
-  .info-layer {
-    flex: 0 1 auto; /* Don't force equal height boxes */
-    width: 100%;
-    transform: translateY(10px); /* Smaller movement for mobile */
-  }
-
-  /* Order the elements: Creator -> Image -> Name/Year */
-  .info-layer:first-of-type {
-    order: 0;
-  }
-  
-  .info-layer:last-of-type {
-    order: 2;
-    margin-top: -0.5rem; /* Pull caption closer to image */
-  }
-
-  .info-layer h3 {
-    font-size: 1.25rem;
-    margin-bottom: 0.25rem;
-  }
-  }
-  
   .carousel-viewport {
     width: 100%;
     height: 100%;
@@ -216,6 +179,24 @@ const galleryItems = await Promise.all(
     height: 100%;
     width: 100%;
   }
+
+    .carousel-track img {
+      -webkit-user-drag: none;
+      -khtml-user-drag: none;
+      -moz-user-drag: none;
+      -o-user-drag: none;
+      user-drag: none;
+      pointer-events: none; /* This ensures the click/drag hits the track, not the <img> */
+    }
+
+    .carousel-track {
+      cursor: grab;
+      user-select: none;
+    }
+
+    .carousel-track:active {
+      cursor: grabbing;
+    }
 
   .carousel-slide {
     flex: 0 0 100%; /* Each slide is exactly the width of the viewport */
@@ -260,6 +241,53 @@ const galleryItems = await Promise.all(
     right: 20px; 
     transform: translateY(-50%) translateX(10px); 
     transition: all 0.4s ease;
+  }
+
+  @media screen and (max-width: 50em) {
+    .sticky-wrapper {
+      flex-direction: column; /* Stack elements vertically */
+      justify-content: center;
+      gap: 1.5rem; /* Space between text and image */
+    }
+
+    .image-container {
+      height: auto; /* Let height be defined by width/aspect ratio */
+      width: 90%;   /* Use more horizontal space */
+      max-height: 50dvh; /* Don't let it take over the whole screen */
+      transform: scale(1); /* Reduce scale; 1.5 is usually too big for mobile */
+      order: 1; /* Keep image in the middle */
+    }
+
+    .info-layer {
+      flex: 0 1 auto; /* Don't force equal height boxes */
+      width: 100%;
+      transform: translateY(10px); /* Smaller movement for mobile */
+    }
+
+    /* Order the elements: Creator -> Image -> Name/Year */
+    .info-layer:first-of-type {
+      order: 0;
+    }
+    
+    .info-layer:last-of-type {
+      order: 2;
+      margin-top: -0.5rem; /* Pull caption closer to image */
+    }
+
+    .info-layer h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.25rem;
+    }
+
+  /* Hide nav buttons on mobile/touch devices since they can swipe */
+    .nav-btn {
+      display: none !important;
+    }
+    
+    .carousel-viewport {
+      /* Prevents the whole page from bouncing while swiping the gallery */
+      touch-action: pan-y; 
+    }
   }
 </style>
 
