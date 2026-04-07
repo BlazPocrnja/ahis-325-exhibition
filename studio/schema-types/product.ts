@@ -40,6 +40,7 @@ export const product = defineType({
     defineField({
       name: "imageWithAlt",
       type: "imageWithAlt",
+      description: 'Required cover photo for the work.',
       validation: (rule) => rule.required(),
     }),
     defineField({
@@ -47,6 +48,32 @@ export const product = defineType({
       title: "Video Link",
       type: "string",
       description: 'Optional field for video/performance works.',
+    }),
+    defineField({
+      name: 'gallery',
+      title: 'Image Gallery',
+      description: 'Optional field for additional images.',
+      type: 'array',
+      of: [
+        {
+          type: 'image',
+          options: {
+            hotspot: true
+          },
+          fields: [
+            {
+              name: 'alt',
+              type: 'string',
+              title: 'Alternative text',
+            },
+            {
+              name: 'caption',
+              type: 'string',
+              title: 'Caption',
+            }
+          ]
+        }
+      ]
     }),
     defineField({
       name: "content",

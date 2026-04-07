@@ -28,14 +28,25 @@ const galleryItems = await Promise.all(
             <h3>{item?.creator?.name || ""}</h3>
         </div>
         <div class="image-container">
-          {item.data.videoLink ? 
-          <iframe title="vimeo-player" src={item.data.videoLink} width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"  allowfullscreen></iframe>
-          :
-            <SanityImage 
-              node={item.data.imageWithAlt} 
-              fit="contain" 
-            />
-          }
+          {item.data.videoLink ? (
+            <iframe title="vimeo-player" src={item.data.videoLink} width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"  allowfullscreen></iframe>
+          ) : item.data.gallery && item.data.gallery.length > 0 ? (
+            /* CAROUSEL MODE */
+            <div class="carousel-viewport" data-carousel>
+              <div class="carousel-track">
+                {item.data.gallery.map((img) => (
+                  <div class="carousel-slide">
+                    <SanityImage node={img} fit="contain" />
+                  </div>
+                ))}
+              </div>
+              <button class="nav-btn prev" aria-label="Previous">←</button>
+              <button class="nav-btn next" aria-label="Next">→</button>
+            </div>
+          ) : (
+            /* SINGLE IMAGE MODE */
+            <SanityImage node={item.data.imageWithAlt} fit="contain" />
+          )}
         </div>
         <div class="info-layer">
             {item.data.name}
@@ -65,12 +76,13 @@ const galleryItems = await Promise.all(
 
   .image-container {
     height: 80dvh;
+    width: 60vw;
     z-index: 3;
     display: flex;
     align-items: center;
     justify-content: center;
-    will-change: transform; /* Performance optimization */
-    transform: scale(1.5);
+    position: relative;
+    overflow: visible; /* Let nav buttons sit slightly outside if you want */
   }
 
   /* Target the img tag inside SanityImage component */
@@ -81,7 +93,8 @@ const galleryItems = await Promise.all(
   }
 
   .info-layer {
-    flex: 1;
+    flex: 1; /* Allows them to grow/shrink equally */
+    min-width: 150px; /* Prevents text from becoming a vertical line */
     z-index: 2;
     text-align: center;
     opacity: 0; /* Hidden initially */
@@ -189,6 +202,64 @@ const galleryItems = await Promise.all(
     font-size: 1.25rem;
     margin-bottom: 0.25rem;
   }
+  }
+  
+  .carousel-viewport {
+    width: 100%;
+    height: 100%;
+    overflow: hidden; 
+    position: relative;
+  }
+
+  .carousel-track {
+    display: flex;
+    height: 100%;
+    width: 100%;
+  }
+
+  .carousel-slide {
+    flex: 0 0 100%; /* Each slide is exactly the width of the viewport */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+
+    /* The "Fix" - When the container is hovered, show the buttons */
+    .carousel-viewport:hover & {
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    /* Interaction - When the mouse is specifically OVER the button */
+    &:hover {
+      background: rgba(0, 0, 0, 0.4) !important;
+    }
+  }
+
+  .prev { 
+    left: 20px; 
+    transform: translateY(-50%) translateX(-10px); 
+    transition: all 0.4s ease;
+  }
+
+  .next { 
+    right: 20px; 
+    transform: translateY(-50%) translateX(10px); 
+    transition: all 0.4s ease;
   }
 </style>
 

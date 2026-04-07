@@ -15,6 +15,12 @@ const productBaseFields = /* groq */ `
     alt,
   },
   videoLink,
+  gallery[] {
+    "ref": asset._ref,
+    alt,
+    caption,
+    "_key": _key // Useful for React/Astro list keys
+  },
   content,
   order,
 `;

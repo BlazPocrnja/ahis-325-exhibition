@@ -21,6 +21,14 @@ const products = defineCollection({
 			alt: z.string(),
 		}),
 		videoLink: z.string().nullable().optional(),
+		gallery: z.array(
+        z.object({
+				ref: z.string(),
+				alt: z.string().nullable().optional(),
+				caption: z.string().nullable().optional(),
+				_key: z.string(),
+			})
+		).optional().nullable(),
 		content: z.array(z.unknown()),
 		sku: z.string().optional(),
 		price: z
