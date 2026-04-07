@@ -1,10 +1,9 @@
-import type { CollectionEntry } from "astro:content";
 import imageUrlBuilder from "@sanity/image-url";
 import type { ImageUrlBuilder } from "@sanity/image-url/lib/types/builder";
 import { client } from "../data/sanity/client";
 
 interface Props {
-	node: CollectionEntry<"products">["data"]["imageWithAlt"];
+	node: { ref: string };
 	width?: number;
 }
 

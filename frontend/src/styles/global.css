@@ -255,3 +255,7 @@ dd {
 .subtitle {
 	opacity: 0.6;
 }
+
+iframe {
+  border: none;
+}

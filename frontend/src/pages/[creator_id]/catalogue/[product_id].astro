@@ -72,14 +72,119 @@ const { creator, product, nextProductSlug, nextProductCreatorId } = Astro.props;
     <Separator />
     
     <div class="content-wrap">
-      {product.data.videoLink ? 
-        <iframe title="vimeo-player" src={product.data.videoLink} width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"  allowfullscreen></iframe> 
-        :
+      {product.data.videoLink ? (
+        <iframe title="vimeo-player" src={product.data.videoLink} width="640" height="360" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"  allowfullscreen></iframe>
+      ) : product.data.gallery && product.data.gallery.length > 0 ? (
+        /* CAROUSEL MODE */
+        <div class="carousel-viewport" data-carousel>
+          <div class="carousel-track">
+            {product.data.gallery.map((img) => (
+              <div class="carousel-slide">
+                <SanityImage node={img} fit="contain" />
+              </div>
+            ))}
+          </div>
+          <button class="nav-btn prev" aria-label="Previous">←</button>
+          <button class="nav-btn next" aria-label="Next">→</button>
+        </div>
+      ) : (
         <SanityImage node={product.data.imageWithAlt} width={1000} fit="contain"/>
-      }
+      )}
       <div class="content">
         <RichText content={product.data.content}  />
       </div>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .carousel-viewport {
+    width: 100%;
+    height: 100%;
+    overflow: hidden; 
+    position: relative;
+  }
+
+  .carousel-track {
+    display: flex;
+    height: 100%;
+    width: 100%;
+  }
+
+  .carousel-track img {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    pointer-events: none; /* This ensures the click/drag hits the track, not the <img> */
+  }
+
+  .carousel-track {
+    cursor: grab;
+    user-select: none;
+  }
+
+  .carousel-track:active {
+    cursor: grabbing;
+  }
+
+  .carousel-slide {
+    flex: 0 0 100%; /* Each slide is exactly the width of the viewport */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+
+    /* The "Fix" - When the container is hovered, show the buttons */
+    .carousel-viewport:hover & {
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    /* Interaction - When the mouse is specifically OVER the button */
+    &:hover {
+      background: rgba(0, 0, 0, 0.4) !important;
+    }
+  }
+
+  .prev { 
+    left: 20px; 
+    transform: translateY(-50%) translateX(-10px); 
+    transition: all 0.4s ease;
+  }
+
+  .next { 
+    right: 20px; 
+    transform: translateY(-50%) translateX(10px); 
+    transition: all 0.4s ease;
+  }
+
+   @media screen and (max-width: 50em) {
+  /* Hide nav buttons on mobile/touch devices since they can swipe */
+    .nav-btn {
+      display: none !important;
+    }
+    
+    .carousel-viewport {
+      /* Prevents the whole page from bouncing while swiping the gallery */
+      touch-action: pan-y; 
+    }
+  }
+</style>
+
+<script src="../../../scripts/gallery.js"></script>

@@ -29,7 +29,7 @@ const galleryItems = await Promise.all(
         </div>
         <div class="image-container">
           {item.data.videoLink ? (
-            <iframe title="vimeo-player" src={item.data.videoLink} width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"  allowfullscreen></iframe>
+            <iframe title="vimeo-player" src={item.data.videoLink} width="640" height="360" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"  allowfullscreen></iframe>
           ) : item.data.gallery && item.data.gallery.length > 0 ? (
             /* CAROUSEL MODE */
             <div class="carousel-viewport" data-carousel>
@@ -180,23 +180,23 @@ const galleryItems = await Promise.all(
     width: 100%;
   }
 
-    .carousel-track img {
-      -webkit-user-drag: none;
-      -khtml-user-drag: none;
-      -moz-user-drag: none;
-      -o-user-drag: none;
-      user-drag: none;
-      pointer-events: none; /* This ensures the click/drag hits the track, not the <img> */
-    }
+  .carousel-track img {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    pointer-events: none; /* This ensures the click/drag hits the track, not the <img> */
+  }
 
-    .carousel-track {
-      cursor: grab;
-      user-select: none;
-    }
+  .carousel-track {
+    cursor: grab;
+    user-select: none;
+  }
 
-    .carousel-track:active {
-      cursor: grabbing;
-    }
+  .carousel-track:active {
+    cursor: grabbing;
+  }
 
   .carousel-slide {
     flex: 0 0 100%; /* Each slide is exactly the width of the viewport */
