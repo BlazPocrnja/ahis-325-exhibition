@@ -73,7 +73,14 @@ const { creator, product, nextProductSlug, nextProductCreatorId } = Astro.props;
     
     <div class="content-wrap">
       {product.data.videoLink ? (
-        <iframe title="vimeo-player" src={product.data.videoLink} width="640" height="360" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"  allowfullscreen></iframe>
+        <iframe 
+        class="product-video"
+        title="vimeo-player" 
+        src={product.data.videoLink} 
+        referrerpolicy="strict-origin-when-cross-origin" 
+        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+        allowfullscreen
+      ></iframe>
       ) : product.data.gallery && product.data.gallery.length > 0 ? (
         /* CAROUSEL MODE */
         <div class="carousel-viewport" data-carousel>
@@ -98,6 +105,15 @@ const { creator, product, nextProductSlug, nextProductCreatorId } = Astro.props;
 </BaseLayout>
 
 <style>
+.product-video {
+    width: 100%; 
+    max-width: 100%;
+    aspect-ratio: 16 / 9; 
+    height: auto;         
+    border: none;
+    display: block;
+  }
+
   .carousel-viewport {
     width: 100%;
     height: 100%;
