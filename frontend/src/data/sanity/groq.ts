@@ -63,7 +63,19 @@ const essayBaseFields = /* groq */ `
   "status": select(_id in path("drafts.**") => "draft", "published"),
   title,
   subtitle,
-  content,
+  content[]{
+    ...,
+    _type == "image" => {
+      ...,
+      asset-> {
+        "_ref": _id,
+        "_id": _id
+        metadata {
+          dimensions
+        }
+      }
+    }
+  }
 `;
 
 export const ALL_PRODUCTS_QUERY = defineQuery(`

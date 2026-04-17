@@ -17,8 +17,22 @@ export const essay = defineType({
       type: "string",
     }),
     defineField({
-      name: "content",
-      type: "portableText",
+      type: 'array',
+      name: 'content',
+      of: [
+        { type: 'block' }, // Standard text
+        {
+          type: 'image',
+          options: { hotspot: true },
+          fields: [
+            {
+              name: 'caption',
+              type: 'string',
+              title: 'Caption',
+            }
+          ]
+        }
+      ]
     }),
   ],
   preview: {

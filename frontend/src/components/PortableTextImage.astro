@@ -1,0 +1,41 @@
+---
+import SanityImage from "./SanityImage.astro";
+
+const { node } = Astro.props;
+
+// Portable Text provides the asset as an object. 
+// Your SanityImage expects node.ref, so we extract it here.
+const normalizedNode = {
+  ref: node.asset?._ref || node.asset?._id,
+  alt: node.alt || "",
+  caption: node.caption
+};
+---
+
+<figure class="portable-text-image">
+  <SanityImage 
+    node={normalizedNode} 
+    width={2000} 
+    aspectRatio="4-3" 
+    fit="contain" 
+  />
+  {node.caption && (
+    <figcaption class="image-caption">
+      {node.caption}
+    </figcaption>
+  )}
+</figure>
+
+<style>
+  .portable-text-image {
+    margin: 2.5rem 0;
+    width: 100%;
+  }
+  .image-caption {
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: #555; /* Adjust to match your essay aesthetic */
+    text-align: left;
+  }
+</style>
