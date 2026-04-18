@@ -69,7 +69,7 @@ const essayBaseFields = /* groq */ `
       ...,
       asset-> {
         "_ref": _id,
-        "_id": _id
+        "_id": _id,
         metadata {
           dimensions
         }
